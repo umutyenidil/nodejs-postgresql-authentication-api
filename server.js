@@ -1,10 +1,14 @@
-// packages
+// package imports
 import express, {json} from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import {dirname, join} from 'path';
 import {fileURLToPath} from 'url';
+
+// route imports
+import {userRoutes} from "./routes/user-routes.js";
+import {authRoutes} from "./routes/auth-routes.js";
 
 // env config
 dotenv.config();
@@ -22,6 +26,10 @@ app.use(cookieParser());
 
 // file definition middlewares
 app.use('/', express.static(join(__dirname, 'public')));
+
+// route middlewares
+app.use('/api/users', userRoutes);
+app.use('/api/auth', authRoutes);
 
 // listening
 app.listen(PORT, (error) => {
